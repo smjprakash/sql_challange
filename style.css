@@ -131,7 +131,67 @@ textarea {
 .hidden {
   display: none;
 }
+```css
+/* View SQL Guide Button */
+.student-form .buttons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 15px 22px;
+    margin-top: 12px;
 
+    color: #4b5680;
+    background: linear-gradient(135deg, #ffffff, #f0f2ff);
+    border: 1px solid #cfd6f5;
+    border-radius: 12px;
+
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    letter-spacing: 0.2px;
+
+    box-shadow: 0 4px 12px rgba(79, 94, 170, 0.08);
+    transition: all 0.25s ease;
+    cursor: pointer;
+}
+
+/* Add a book icon */
+.student-form .buttons a::before {
+    content: "▤";
+    font-size: 20px;
+    color: #7165d9;
+}
+
+/* Hover effect */
+.student-form .buttons a:hover {
+    color: #ffffff;
+    background: linear-gradient(110deg, #4ddbd2, #8270e8, #e58bc9);
+    border-color: transparent;
+    box-shadow: 0 8px 22px rgba(115, 104, 220, 0.25);
+    transform: translateY(-2px);
+}
+
+/* Animate the icon on hover */
+.student-form .buttons a:hover::before {
+    color: #ffffff;
+    transform: scale(1.12);
+}
+
+/* Keyboard accessibility */
+.student-form .buttons a:focus-visible {
+    outline: 3px solid #8b7cf6;
+    outline-offset: 4px;
+}
+
+/* Click effect */
+.student-form .buttons a:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(79, 94, 170, 0.12);
+}
 .college-heading {
   display: flex;
   align-items: center;
