@@ -131,7 +131,6 @@ textarea {
 .hidden {
   display: none;
 }
-```css
 /* View SQL Guide Button */
 .student-form .buttons a {
     display: flex;
