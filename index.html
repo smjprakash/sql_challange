@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SQL Mystery: The Vanishing Star</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+    <section id="welcome-page" class="screen welcome-screen">
+      <div class="welcome-art" aria-hidden="true">
+        <svg class="cosmic-illustration" viewBox="0 0 220 190" focusable="false">
+          <defs>
+            <radialGradient id="cosmic-planet" cx="32%" cy="28%" r="72%">
+              <stop offset="0" stop-color="#fff1bd"/>
+              <stop offset=".48" stop-color="#ff9bcb"/>
+              <stop offset="1" stop-color="#8b72e8"/>
+            </radialGradient>
+            <linearGradient id="cosmic-ring" x1="0" x2="1">
+              <stop stop-color="#4ddbd2"/>
+              <stop offset=".5" stop-color="#9b7cf6"/>
+              <stop offset="1" stop-color="#ff8fb8"/>
+            </linearGradient>
+          </defs>
+          <path d="M17 99c35-57 129-80 184-35 20 17 10 44-13 58-46 28-125 14-171-23Z" fill="none" stroke="url(#cosmic-ring)" stroke-width="3" opacity=".78"/>
+          <circle cx="112" cy="91" r="42" fill="url(#cosmic-planet)"/>
+          <path d="M73 106c24 14 55 17 82 7-11 19-29 29-49 26-16-2-28-14-33-33Z" fill="#6c5bd4" opacity=".34"/>
+          <path d="M47 53 51 63 61 67 51 71 47 81 43 71 33 67 43 63Z" fill="#ffc86b"/>
+          <path d="m169 22 3 7 7 3-7 3-3 7-3-7-7-3 7-3Z" fill="#56d9d4"/>
+          <circle cx="183" cy="112" r="4" fill="#f185c0"/>
+          <circle cx="71" cy="145" r="3" fill="#8c78eb"/>
+        </svg>
+        <svg class="sql-illustration" viewBox="0 0 190 150" focusable="false">
+          <defs>
+            <linearGradient id="sql-card" x1="0" y1="0" x2="1" y2="1">
+              <stop stop-color="#fff"/>
+              <stop offset="1" stop-color="#e9e8ff"/>
+            </linearGradient>
+            <linearGradient id="sql-db" x1="0" y1="0" x2="1" y2="1">
+              <stop stop-color="#4ddbd2"/>
+              <stop offset="1" stop-color="#8270e8"/>
+            </linearGradient>
+          </defs>
+          <rect x="11" y="15" width="168" height="120" rx="18" fill="url(#sql-card)" stroke="#b8b6ee" stroke-width="2"/>
+          <circle cx="27" cy="31" r="4" fill="#ff8fba"/>
+          <circle cx="40" cy="31" r="4" fill="#ffc86b"/>
+          <circle cx="53" cy="31" r="4" fill="#53d4c9"/>
+          <path d="M34 63c0-8 13-14 29-14s29 6 29 14-13 14-29 14-29-6-29-14Zm0 0v37c0 8 13 14 29 14s29-6 29-14V63m-58 18c0 8 13 14 29 14s29-6 29-14" fill="url(#sql-db)" stroke="#fff" stroke-width="3"/>
+          <rect x="102" y="53" width="61" height="25" rx="8" fill="#edeaff"/>
+          <text x="132.5" y="70" text-anchor="middle" fill="#6655c8" font-family="Segoe UI, Arial, sans-serif" font-size="11" font-weight="700">SELECT</text>
+          <path d="m108 99 7 6-7 6m12 0h25" fill="none" stroke="#ee76ac" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+          <circle cx="153" cy="105" r="3" fill="#54cfc9"/>
+        </svg>
+      </div>
+      <header class="brand-bar">
+        <div class="college-heading">
+          <img class="college-logo" src="caslogo.png" alt="KG College of Arts and Science logo">
+          <div class="brand-copy"><h1>KG College of Arts and Science</h1><p class="team-name">Technical Training Team</p></div>
+        </div>
+        <span class="edition-pill"><span class="live-dot"></span> Interactive SQL Experience</span>
+      </header>
+      <div class="welcome-layout">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="eyebrow-line"></span> A DATABASE DETECTIVE CHALLENGE</p>
+          <h2 class="title">Every clue tells<br> a <span class="gradient-text">story.</span></h2>
+          <h3 class="subtitle">SQL Mystery: The Vanishing Star</h3>
+          <p class="intro">A priceless artifact has appeared in the wrong gallery. Step into the role of a database detective, investigate museum records, and uncover the truth through 12 hands-on SQL challenges.</p>
+          <div class="feature-row">
+            <div class="feature-item"><span class="feature-icon">⌘</span><div><strong>12 challenges</strong><small>Progressive SQL puzzles</small></div></div>
+            <div class="feature-item"><span class="feature-icon">◷</span><div><strong>90 minutes</strong><small>Race against the clock</small></div></div>
+            <div class="feature-item"><span class="feature-icon">✦</span><div><strong>Certificate</strong><small>Earn your achievement</small></div></div>
+          </div>
+          <div class="hero-note"><span class="note-icon">✧</span><span>Think critically. Query carefully. Solve the mystery.</span></div>
+        </div>
+        <form id="student-form" class="student-form">
+          <div class="form-heading"><span class="form-step">YOUR INVESTIGATION STARTS HERE</span><h3>Detective, identify yourself.</h3><p>Enter your student details to access the case file.</p></div>
+          <div class="form-grid">
+            <div class="form-field"><label for="student-name">Student name</label><input id="student-name" name="studentName" type="text" autocomplete="name" placeholder="e.g. Alex Kumar" required></div>
+            <div class="form-field"><label for="roll-number">Roll number</label><input id="roll-number" name="rollNumber" type="text" autocomplete="off" placeholder="24BCS101" required></div>
+            <div class="form-field"><label for="department">Department <span class="optional-label">(optional)</span></label><select id="department" name="department">
+              <option value="">Select department</option>
+              <option value="BSc CS">BSc CS</option>
+              <option value="BSc IT">BSc IT</option>
+              <option value="BSc CT">BSc CT</option>
+              <option value="BSc AI &amp; DS">BSc AI &amp; DS</option>
+              <option value="BCA">BCA</option>
+              <option value="MSc SS">MSc SS</option>
+              <option value="MSc CS">MSc CS</option>
+            </select></div>
+            <div class="form-field"><label for="section">Section <span class="optional-label">(optional)</span></label><select id="section" name="section">
+              <option value="">Select section</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+            </select></div>
+          </div>
+          <p id="student-form-status" class="status" role="status" aria-live="polite"></p>
+          <div class="buttons"><button id="start-btn" class="btn start" type="submit" disabled>Begin investigation <span aria-hidden="true">↗</span></button><a class="btn guide-btn" href="README.md" target="_blank" rel="noopener">View SQL guide</a></div>
+          <div class="student-instructions">
+            <h4>How to get started</h4>
+            <ol>
+              <li>Open the SQL guide and run its setup script in your MySQL database to create the tables and insert the sample rows.</li>
+              <li>For each challenge, write and run a query in MySQL, then check the results.</li>
+              <li>Paste your SQL query (not its result) into the challenge box and select <strong>Run Query</strong> to check your answer.</li>
+            </ol>
+          </div>
+          <div class="secure-note"><span>◈</span> Your case file is ready when you are.</div>
+        </form>
+      </div>
+      <footer class="welcome-footer"><span>BUILT FOR CURIOUS MINDS</span><span class="footer-divider"></span><span>LEARN SQL BY SOLVING A MYSTERY</span></footer>
+      <p id="setup-status" class="status setup-status" role="status" aria-live="polite">Loading the investigation database…</p>
+    </section>
+
+    <section id="game-page" class="screen hidden" aria-labelledby="game-title">
+      <header class="header">
+        <div>
+          <h2 id="game-title">🧩 The Vanishing Star</h2>
+          <p id="student-summary" class="student-summary"></p>
+          <p id="progress" class="progress"></p>
+        </div>
+        <div id="timer" role="timer">⏱️ 90:00</div>
+      </header>
+
+      <section id="clue-container" class="card">
+        <h3 id="clue-title"></h3>
+        <p id="clue-text"></p>
+        <p class="query-guidance">First test your query in your MySQL database and check the results. Then paste the SQL query here and select <strong>Run Query</strong>. The game checks it against its built-in sample data.</p>
+        <div class="schema-toggle-row">
+          <button id="schema-toggle" class="btn" type="button" aria-expanded="false" aria-controls="schema-panel">View schema</button>
+        </div>
+        <section id="schema-panel" class="schema-panel" aria-label="Database schema" hidden>
+          <h4>Database schema</h4>
+          <div class="schema-table-wrapper">
+            <table class="schema-table">
+              <thead>
+                <tr><th scope="col">Table</th><th scope="col">Column</th><th scope="col">Type</th><th scope="col">Details</th></tr>
+              </thead>
+              <tbody>
+                <tr><th scope="rowgroup" rowspan="5">staff</th><td>staff_id</td><td>INTEGER</td><td>Primary key</td></tr>
+                <tr><td>full_name</td><td>TEXT</td><td>Required</td></tr>
+                <tr><td>department</td><td>TEXT</td><td>Required</td></tr>
+                <tr><td>job_title</td><td>TEXT</td><td>Required</td></tr>
+                <tr><td>clearance_level</td><td>INTEGER</td><td>Required; 1–5</td></tr>
+                <tr><th scope="rowgroup" rowspan="3">galleries</th><td>gallery_id</td><td>INTEGER</td><td>Primary key</td></tr>
+                <tr><td>gallery_name</td><td>TEXT</td><td>Required; unique</td></tr>
+                <tr><td>security_zone</td><td>TEXT</td><td>Required; PUBLIC or RESTRICTED</td></tr>
+                <tr><th scope="rowgroup" rowspan="4">artifacts</th><td>artifact_id</td><td>TEXT</td><td>Primary key</td></tr>
+                <tr><td>artifact_name</td><td>TEXT</td><td>Required; unique</td></tr>
+                <tr><td>home_gallery_id</td><td>INTEGER</td><td>Required; references galleries.gallery_id</td></tr>
+                <tr><td>estimated_value</td><td>INTEGER</td><td>Required; greater than 0</td></tr>
+                <tr><th scope="rowgroup" rowspan="6">museum_events</th><td>event_id</td><td>INTEGER</td><td>Primary key</td></tr>
+                <tr><td>staff_id</td><td>INTEGER</td><td>Required; references staff.staff_id</td></tr>
+                <tr><td>gallery_id</td><td>INTEGER</td><td>Required; references galleries.gallery_id</td></tr>
+                <tr><td>event_time</td><td>DATETIME</td><td>Required; YYYY-MM-DD HH:MM:SS</td></tr>
+                <tr><td>event_type</td><td>TEXT</td><td>Required; ENTRY, EXIT, ROUTINE_SCAN, or ALERT_SCAN</td></tr>
+                <tr><td>artifact_id</td><td>TEXT</td><td>References artifacts.artifact_id; empty for ordinary entries/exits</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        <label for="query-input">Write your SQL query</label>
+        <textarea id="query-input" rows="8" spellcheck="false" placeholder="SELECT ..."></textarea>
+        <div class="buttons">
+          <button id="check-btn" class="btn">▶ Run Query</button>
+          <button id="next-btn" class="btn start" disabled>Next Challenge →</button>
+        </div>
+        <p id="result" role="status" aria-live="polite"></p>
+        <div id="query-output" class="query-output" aria-live="polite"></div>
+      </section>
+    </section>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
