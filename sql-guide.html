@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SQL Mystery: The Vanishing Star — setup guide and MySQL database script.">
+  <title>SQL Guide | SQL Mystery: The Vanishing Star</title>
+  <style>
+    :root {
+      --ink: #1d2948;
+      --muted: #60708f;
+      --line: #d8e0f4;
+      --surface: rgba(255, 255, 255, 0.9);
+      --accent: #4e6bd8;
+      --accent-dark: #344bb0;
+      --code-bg: #111a2e;
+      --code-ink: #e8efff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.7;
+      background:
+        radial-gradient(circle at 8% 8%, rgba(117, 143, 255, .18), transparent 28rem),
+        radial-gradient(circle at 90% 20%, rgba(226, 132, 211, .17), transparent 26rem),
+        #f3f6ff;
+    }
+    .page { width: min(1040px, calc(100% - 32px)); margin: 0 auto; padding: 42px 0 64px; }
+    .topline { display: flex; align-items: center; gap: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .14em; font-size: .76rem; font-weight: 800; }
+    .topline::before { content: ""; width: 28px; height: 2px; background: var(--accent); }
+    header { margin-bottom: 28px; }
+    h1 { margin: 14px 0 8px; font-size: clamp(2.1rem, 5vw, 3.5rem); line-height: 1.08; letter-spacing: -.045em; }
+    h1 span { background: linear-gradient(100deg, #159caf, #5969df, #d25fb4); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .subtitle { font-size: 1.2rem; font-weight: 750; margin: 12px 0; }
+    .intro { max-width: 780px; color: var(--muted); font-size: 1.02rem; }
+    .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: clamp(20px, 4vw, 34px); box-shadow: 0 18px 55px rgba(37, 57, 112, .07); margin-top: 22px; }
+    h2 { font-size: 1.4rem; line-height: 1.3; margin: 0 0 12px; letter-spacing: -.02em; }
+    h3 { margin: 24px 0 8px; font-size: 1.05rem; }
+    p { margin: 8px 0 14px; }
+    ul, ol { padding-left: 1.4rem; }
+    li { margin: 5px 0; }
+    code:not(pre code) { background: #edf1ff; color: #394b9c; border-radius: 5px; padding: .12em .38em; font-size: .92em; overflow-wrap: anywhere; }
+    .note { background: #f0f5ff; border-left: 4px solid #7186e9; padding: 13px 16px; border-radius: 8px; color: #344365; margin: 16px 0; }
+    .code-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin: 20px 0 0; padding: 11px 14px; background: #202c48; color: #fff; border-radius: 12px 12px 0 0; font-size: .9rem; font-weight: 700; }
+    button { border: 0; border-radius: 8px; padding: 9px 13px; font: inherit; font-weight: 750; cursor: pointer; color: white; background: var(--accent); }
+    button:hover { background: var(--accent-dark); }
+    button:focus-visible, a:focus-visible { outline: 3px solid #e3a5dc; outline-offset: 3px; }
+    pre { margin: 0; padding: 20px; background: var(--code-bg); color: var(--code-ink); border-radius: 0 0 12px 12px; overflow: auto; max-height: none; font: 13px/1.65 Consolas, "Courier New", monospace; tab-size: 2; }
+    pre code { white-space: pre; }
+    .footer { color: var(--muted); text-align: center; font-size: .9rem; margin-top: 28px; }
+    .back-link { display: inline-block; margin-top: 18px; color: var(--accent-dark); font-weight: 750; text-decoration: none; }
+    .back-link:hover { text-decoration: underline; }
+    @media (max-width: 600px) {
+      .page { width: min(100% - 20px, 1040px); padding-top: 26px; }
+      .panel { border-radius: 13px; }
+      pre { padding: 14px; font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <div class="topline">A database detective challenge</div>
+      <h1>SQL <span>Guide</span></h1>
+      <p class="subtitle">SQL Mystery: The Vanishing Star</p>
+      <p class="intro">The Star of Asterion has appeared in an unexpected gallery. Use SQL to inspect the museum records, find the suspicious scan, and identify who made it.</p>
+    </header>
+
+    <section class="panel">
+      <h2>About this activity</h2>
+      <p>This activity uses four tables and 12 questions. It practices selecting and filtering rows, sorting and limiting results, counting with <code>GROUP BY</code> and <code>HAVING</code>, joins, and subqueries. No window functions are needed.</p>
+      <h3>What you need</h3>
+      <ul>
+        <li>MySQL, using MySQL Workbench or the <code>mysql</code> command-line client.</li>
+        <li>A modern browser and an internet connection to load the game's SQLite engine.</li>
+      </ul>
+    </section>
+
+    <section class="panel">
+      <h2>1. Create and fill the database</h2>
+      <p>In MySQL Workbench or the MySQL command-line client, copy and run the complete script below. It creates a database named <code>vanishing_star</code>, creates the four tables, and inserts the sample rows.</p>
+      <div class="note"><strong>Important:</strong> If you already have a database with these table names, use a new empty database to avoid duplicate-table or duplicate-row errors.</div>
+
+      <div class="code-head">
+        <span>MySQL setup script</span>
+        <button type="button" id="copySqlButton">Copy SQL script</button>
+      </div>
+      <pre><code id="sqlScript">CREATE DATABASE IF NOT EXISTS vanishing_star;
+USE vanishing_star;
+
+CREATE TABLE staff (
+  staff_id INT NOT NULL PRIMARY KEY,
+  full_name VARCHAR(100) NOT NULL,
+  department VARCHAR(100) NOT NULL,
+  job_title VARCHAR(100) NOT NULL,
+  clearance_level INT NOT NULL
+) ENGINE=InnoDB;
+
+CREATE TABLE galleries (
+  gallery_id INT NOT NULL PRIMARY KEY,
+  gallery_name VARCHAR(100) NOT NULL UNIQUE,
+  security_zone VARCHAR(20) NOT NULL
+) ENGINE=InnoDB;
+
+CREATE TABLE artifacts (
+  artifact_id VARCHAR(20) NOT NULL PRIMARY KEY,
+  artifact_name VARCHAR(100) NOT NULL UNIQUE,
+  home_gallery_id INT NOT NULL,
+  estimated_value BIGINT NOT NULL,
+  CONSTRAINT fk_artifacts_gallery
+    FOREIGN KEY (home_gallery_id) REFERENCES galleries(gallery_id)
+) ENGINE=InnoDB;
+
+CREATE TABLE museum_events (
+  event_id INT NOT NULL PRIMARY KEY,
+  staff_id INT NOT NULL,
+  gallery_id INT NOT NULL,
+  event_time DATETIME NOT NULL,
+  event_type VARCHAR(20) NOT NULL,
+  artifact_id VARCHAR(20),
+  CONSTRAINT fk_events_staff
+    FOREIGN KEY (staff_id) REFERENCES staff(staff_id),
+  CONSTRAINT fk_events_gallery
+    FOREIGN KEY (gallery_id) REFERENCES galleries(gallery_id),
+  CONSTRAINT fk_events_artifact
+    FOREIGN KEY (artifact_id) REFERENCES artifacts(artifact_id)
+) ENGINE=InnoDB;
+
+INSERT INTO staff VALUES
+  (1, 'Ava Stone', 'Security', 'Security Officer', 4),
+  (2, 'Ben Cole', 'Collections', 'Senior Curator', 4),
+  (3, 'Cora Lin', 'Conservation', 'Conservator', 3),
+  (4, 'Dev Malik', 'Museum Technology', 'Systems Technician', 5),
+  (5, 'Eli Ward', 'Registration', 'Registrar', 3),
+  (6, 'Finn Gray', 'Security', 'Night Guard', 2);
+
+INSERT INTO galleries VALUES
+  (1, 'Celestial Gallery', 'RESTRICTED'),
+  (2, 'East Wing', 'RESTRICTED'),
+  (3, 'Archive', 'RESTRICTED'),
+  (4, 'Restoration Lab', 'RESTRICTED'),
+  (5, 'Main Lobby', 'PUBLIC');
+
+INSERT INTO artifacts VALUES
+  ('ART-01', 'Star of Asterion', 1, 9500000),
+  ('ART-02', 'Sun Mask', 2, 1800000),
+  ('ART-03', 'Lunar Astrolabe', 3, 2400000),
+  ('ART-04', 'Ivory Atlas', 4, 1200000);
+
+INSERT INTO museum_events
+  (event_id, staff_id, gallery_id, event_time, event_type) VALUES
+  (1, 1, 1, '2025-11-18 20:00:00', 'ENTRY'),
+  (2, 1, 1, '2025-11-18 20:20:00', 'EXIT'),
+  (3, 2, 2, '2025-11-18 20:10:00', 'ENTRY'),
+  (4, 2, 2, '2025-11-18 20:30:00', 'EXIT'),
+  (5, 3, 4, '2025-11-18 20:15:00', 'ENTRY'),
+  (6, 3, 4, '2025-11-18 20:35:00', 'EXIT'),
+  (7, 4, 3, '2025-11-18 20:30:00', 'ENTRY'),
+  (8, 4, 3, '2025-11-18 20:40:00', 'EXIT'),
+  (9, 5, 1, '2025-11-18 20:45:00', 'ENTRY'),
+  (10, 5, 1, '2025-11-18 21:00:00', 'EXIT'),
+  (11, 6, 3, '2025-11-18 21:10:00', 'ENTRY'),
+  (12, 6, 3, '2025-11-18 21:20:00', 'EXIT'),
+  (13, 4, 1, '2025-11-18 21:12:00', 'ENTRY'),
+  (14, 4, 1, '2025-11-18 21:25:00', 'EXIT'),
+  (15, 4, 1, '2025-11-18 21:42:00', 'ENTRY'),
+  (16, 4, 2, '2025-11-18 21:48:00', 'ENTRY'),
+  (17, 4, 1, '2025-11-18 21:50:00', 'EXIT'),
+  (18, 4, 2, '2025-11-18 22:00:00', 'EXIT'),
+  (19, 4, 3, '2025-11-18 22:30:00', 'ENTRY'),
+  (20, 4, 3, '2025-11-18 22:40:00', 'EXIT'),
+  (21, 4, 5, '2025-11-18 23:05:00', 'ENTRY'),
+  (22, 4, 5, '2025-11-18 23:10:00', 'EXIT');
+
+INSERT INTO museum_events
+  (event_id, staff_id, gallery_id, event_time, event_type, artifact_id) VALUES
+  (23, 1, 1, '2025-11-18 18:00:00', 'ROUTINE_SCAN', 'ART-01'),
+  (24, 2, 2, '2025-11-18 18:05:00', 'ROUTINE_SCAN', 'ART-02'),
+  (25, 6, 3, '2025-11-18 18:10:00', 'ROUTINE_SCAN', 'ART-03'),
+  (26, 3, 4, '2025-11-18 18:15:00', 'ROUTINE_SCAN', 'ART-04'),
+  (27, 4, 2, '2025-11-18 21:49:00', 'ALERT_SCAN', 'ART-01'),
+  (28, 2, 2, '2025-11-18 21:55:00', 'ALERT_SCAN', 'ART-02');</code></pre>
+
+      <h3>Important notes</h3>
+      <ul>
+        <li>The <code>artifact_id</code> in <code>museum_events</code> is <code>NULL</code> for ordinary entries and exits.</li>
+        <li>Scan events contain the artifact ID.</li>
+        <li>MySQL stores <code>event_time</code> as <code>DATETIME</code>.</li>
+        <li>Use a new or empty database if you need to run the setup again.</li>
+      </ul>
+      <a class="back-link" href="index.html">← Back to SQL Mystery</a>
+    </section>
+    <p class="footer">SQL Mystery: The Vanishing Star · Database Detective Challenge</p>
+  </main>
+  <script>
+    const copyButton = document.getElementById("copySqlButton");
+    const sqlScript = document.getElementById("sqlScript");
+
+    copyButton.addEventListener("click", async () => {
+      const originalText = copyButton.textContent;
+      try {
+        await navigator.clipboard.writeText(sqlScript.textContent);
+        copyButton.textContent = "Copied!";
+      } catch (error) {
+        const range = document.createRange();
+        range.selectNodeContents(sqlScript);
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        copyButton.textContent = "Select and copy";
+      }
+      window.setTimeout(() => {
+        copyButton.textContent = originalText;
+      }, 2000);
+    });
+  </script>
+</body>
+</html>
